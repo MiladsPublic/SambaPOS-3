@@ -1,0 +1,102 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* POS-specific styles */
+.menu-item-btn {
+  transition: transform 0.1s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.menu-item-btn:hover {
+  transform: scale(1.05);
+  border-color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.menu-item-btn:active {
+  transform: scale(0.95);
+}
+
+.order-item {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.order-item:hover {
+  background-color: #e9ecef;
+}
+
+.category-btn.active {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+/* Make the interface more touch-friendly */
+@media (max-width: 768px) {
+  .menu-item-btn {
+    min-height: 120px;
+    font-size: 1.1rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .card-header h5 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .card {
+    border-radius: 0.5rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar, .footer, .btn, .modal {
+    display: none !important;
+  }
+  
+  .card {
+    border: none;
+    box-shadow: none;
+  }
+}

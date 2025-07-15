@@ -1,0 +1,151 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Point of Sale";
+}
+
+<div class="row h-100">
+    <!-- Menu Categories and Items -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Menu</h5>
+            </div>
+            <div class="card-body">
+                <!-- Categories -->
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="btn-group" role="group" id="categoriesGroup">
+                            <button type="button" class="btn btn-outline-primary category-btn active" data-category="all">All</button>
+                            <button type="button" class="btn btn-outline-primary category-btn" data-category="burgers">Burgers</button>
+                            <button type="button" class="btn btn-outline-primary category-btn" data-category="pizza">Pizza</button>
+                            <button type="button" class="btn btn-outline-primary category-btn" data-category="sides">Sides</button>
+                            <button type="button" class="btn btn-outline-primary category-btn" data-category="drinks">Drinks</button>
+                            <button type="button" class="btn btn-outline-primary category-btn" data-category="salads">Salads</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Items Grid -->
+                <div class="row" id="menuItemsGrid">
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-3">
+                        <button class="btn btn-light menu-item-btn w-100 h-100" data-item-id="1" data-name="Cheeseburger" data-price="15.50" style="background-color: #FF6B35; color: white; min-height: 100px;">
+                            <div class="text-center">
+                                <div class="h6 mb-1">Cheeseburger</div>
+                                <div class="h5 mb-0">$15.50</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-3">
+                        <button class="btn btn-light menu-item-btn w-100 h-100" data-item-id="5" data-name="Margherita Pizza" data-price="18.00" style="background-color: #4ECDC4; color: white; min-height: 100px;">
+                            <div class="text-center">
+                                <div class="h6 mb-1">Margherita Pizza</div>
+                                <div class="h5 mb-0">$18.00</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-3">
+                        <button class="btn btn-light menu-item-btn w-100 h-100" data-item-id="2" data-name="French Fries" data-price="5.00" style="background-color: #45B7D1; color: white; min-height: 100px;">
+                            <div class="text-center">
+                                <div class="h6 mb-1">French Fries</div>
+                                <div class="h5 mb-0">$5.00</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-3">
+                        <button class="btn btn-light menu-item-btn w-100 h-100" data-item-id="3" data-name="Coca Cola" data-price="4.00" style="background-color: #96CEB4; color: white; min-height: 100px;">
+                            <div class="text-center">
+                                <div class="h6 mb-1">Coca Cola</div>
+                                <div class="h5 mb-0">$4.00</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-3">
+                        <button class="btn btn-light menu-item-btn w-100 h-100" data-item-id="4" data-name="Caesar Salad" data-price="12.00" style="background-color: #FFEAA7; color: black; min-height: 100px;">
+                            <div class="text-center">
+                                <div class="h6 mb-1">Caesar Salad</div>
+                                <div class="h5 mb-0">$12.00</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Current Order/Ticket -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Current Order</h5>
+                <button class="btn btn-sm btn-light" onclick="newTicket()">New</button>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <!-- Order Items -->
+                <div class="flex-grow-1">
+                    <div id="orderItems">
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-shopping-cart fa-3x mb-3"></i>
+                            <p>No items in current order</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="border-top pt-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax:</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 h5">
+                        <strong>Total:</strong>
+                        <strong id="total">$0.00</strong>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-warning" onclick="holdTicket()" disabled id="holdBtn">Hold</button>
+                        <button class="btn btn-success" onclick="showPaymentModal()" disabled id="payBtn">Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <h3>Total: <span id="paymentTotal">$0.00</span></h3>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-success w-100 mb-2" onclick="processPayment('cash')">
+                            <i class="fas fa-money-bill-wave"></i><br>Cash
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary w-100 mb-2" onclick="processPayment('card')">
+                            <i class="fas fa-credit-card"></i><br>Card
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pos.js"></script>
+}
